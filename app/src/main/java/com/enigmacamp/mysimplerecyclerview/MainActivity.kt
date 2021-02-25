@@ -14,17 +14,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
+        initViewModel()
         binding.apply {
             setContentView(root)
-            rvAdapter = ItemViewAdapter()
+            rvAdapter = ItemViewAdapter(viewModel)
 
             itemRecyclerView.apply {
                 layoutManager = LinearLayoutManager(this@MainActivity)
                 adapter = rvAdapter
             }
         }
-        initViewModel()
+
         subscribe()
     }
 
