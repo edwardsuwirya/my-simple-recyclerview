@@ -5,31 +5,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainActivityViewModel : ViewModel(), ItemClickListener {
+class MainActivityViewModel(val repository: SimpleRepository) : ViewModel(), ItemClickListener {
     private var _itemLiveData = MutableLiveData<List<Item>>()
     val itemLiveData: LiveData<List<Item>>
         get() {
             return _itemLiveData
         }
 
-    var itemList = arrayListOf(Item("ABC", "123"), Item("XYZ", "000"), Item("DEF", "111"))
 
     init {
         loadItemData()
     }
 
     fun loadItemData() {
-        _itemLiveData.value = itemList
+        _itemLiveData.value = repository.list()
     }
 
     override fun onDelete(item: Item) {
-        val itemPos = itemList.indexOf(item)
-        itemList.removeAt(itemPos)
-        _itemLiveData.value = itemList
+        repository.delete(item)
+        loadItemData()
     }
 
     fun onAddItem(title: String, description: String) {
-        itemList.add(Item(title, description))
-        _itemLiveData.value = itemList
+        repository.add(Item(title, description))
+        loadItemData()
     }
 }

@@ -2,6 +2,7 @@ package com.enigmacamp.mysimplerecyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.enigmacamp.mysimplerecyclerview.databinding.ActivityMainBinding
@@ -33,7 +34,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val repo = ItemRepository()
+                return MainActivityViewModel(repo) as T
+            }
+
+        }).get(MainActivityViewModel::class.java)
     }
 
     fun subscribe() {
