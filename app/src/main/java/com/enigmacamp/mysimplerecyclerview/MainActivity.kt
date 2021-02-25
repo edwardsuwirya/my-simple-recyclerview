@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
                 layoutManager = LinearLayoutManager(this@MainActivity)
                 adapter = rvAdapter
             }
+
+            addButton.setOnClickListener {
+                viewModel.onAddItem(titleEditText.text.toString(), descriptionEditText.text.toString())
+            }
         }
 
         subscribe()

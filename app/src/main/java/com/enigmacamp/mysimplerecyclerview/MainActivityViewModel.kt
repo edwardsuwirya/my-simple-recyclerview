@@ -12,7 +12,7 @@ class MainActivityViewModel : ViewModel(), ItemClickListener {
             return _itemLiveData
         }
 
-    var itemList = arrayListOf<Item>(Item("ABC", "123"), Item("XYZ", "000"), Item("DEF", "111"))
+    var itemList = arrayListOf(Item("ABC", "123"), Item("XYZ", "000"), Item("DEF", "111"))
 
     init {
         loadItemData()
@@ -25,7 +25,11 @@ class MainActivityViewModel : ViewModel(), ItemClickListener {
     override fun onDelete(item: Item) {
         val itemPos = itemList.indexOf(item)
         itemList.removeAt(itemPos)
-        Log.d("ViewModel", itemList.toString())
+        _itemLiveData.value = itemList
+    }
+
+    fun onAddItem(title: String, description: String) {
+        itemList.add(Item(title, description))
         _itemLiveData.value = itemList
     }
 }
