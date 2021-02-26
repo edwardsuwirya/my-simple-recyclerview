@@ -1,8 +1,10 @@
-package com.enigmacamp.mysimplerecyclerview
+package com.enigmacamp.mysimplerecyclerview.presentation.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.enigmacamp.mysimplerecyclerview.R
+import com.enigmacamp.mysimplerecyclerview.data.model.Item
 
 class ItemViewAdapter(val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<ItemViewHolder>() {

@@ -1,7 +1,8 @@
-package com.enigmacamp.mysimplerecyclerview
+package com.enigmacamp.mysimplerecyclerview.presentation.main
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.enigmacamp.mysimplerecyclerview.data.model.Item
 import com.enigmacamp.mysimplerecyclerview.databinding.ItemLayoutBinding
 
 class ItemViewHolder(view: View, val clickListener: ItemClickListener) :
@@ -14,6 +15,9 @@ class ItemViewHolder(view: View, val clickListener: ItemClickListener) :
             descriptionTextView.setText((item.description))
             deleteButton.setOnClickListener {
                 clickListener.onDelete(item)
+            }
+            titleTextView.setOnClickListener {
+                clickListener.onUpdate(item)
             }
         }
     }
