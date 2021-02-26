@@ -17,7 +17,7 @@ class ItemViewHolder(view: View, val clickListener: ItemClickListener) :
             deleteButton.setOnClickListener {
                 clickListener.onDelete(item)
             }
-            titleTextView.setOnClickListener {
+            itemCard.setOnClickListener {
                 clickListener.onUpdate(item)
             }
         }

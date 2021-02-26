@@ -17,4 +17,9 @@ class UpdateViewModel(private val repository: SimpleRepository) : ViewModel() {
         val itemUpdated = repository.update(item)
         _updateStatus.value = itemUpdated
     }
+
+    fun onAddItem(title: String, description: String) {
+        val itemUpdated = repository.add(Item(title = title, description = description))
+        _updateStatus.value = itemUpdated
+    }
 }

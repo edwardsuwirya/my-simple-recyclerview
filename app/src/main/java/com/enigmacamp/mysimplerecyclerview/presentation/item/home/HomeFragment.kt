@@ -50,10 +50,11 @@ class HomeFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = rvAdapter
             }
+
             addButton.setOnClickListener {
-                viewModel.onAddItem(
-                    titleEditText.text.toString(),
-                    descriptionEditText.text.toString()
+                Navigation.findNavController(requireView()).navigate(
+                    R.id.action_homeFragment_to_updateFragment,
+                    bundleOf("update_action" to "ADD")
                 )
             }
         }
@@ -77,8 +78,16 @@ class HomeFragment : Fragment() {
         })
         viewModel.itemUpdateLiveData.observe(this, {
             Navigation.findNavController(requireView())
-                .navigate(R.id.action_homeFragment_to_updateFragment, bundleOf("item_update" to it))
+                .navigate(
+                    R.id.action_homeFragment_to_updateFragment,
+                    bundleOf("item_update" to it, "update_action" to "UPDATE")
+                )
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        arguments?.clear()
     }
 
     companion object {

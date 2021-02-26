@@ -23,12 +23,17 @@ import com.enigmacamp.mysimplerecyclerview.databinding.FragmentUpdateBinding
  */
 class UpdateFragment : Fragment() {
     private var itemUpdate: Item? = null
+    private var updateAction: String? = null
+
     private lateinit var binding: FragmentUpdateBinding
     private lateinit var viewModel: UpdateViewModel
+    private var updatedItem: Item? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             itemUpdate = it.getParcelable<Item>("item_update")
+            updateAction = it.getString("update_action", "")
         }
         initViewModel()
         subscribe()
@@ -43,20 +48,31 @@ class UpdateFragment : Fragment() {
             cancelButton.setOnClickListener {
                 Navigation.findNavController(requireView()).popBackStack()
             }
+
             itemUpdate?.apply {
-
-                titleUpdateEditText.setText(title)
-                descriptionUpdateEditText.setText(description)
-                updateButton.setOnClickListener {
-                    val updatedItem = copy(
-                        title = titleUpdateEditText.text.toString(),
-                        description = descriptionUpdateEditText.text.toString()
-                    )
-                    Log.d("Repo", updatedItem.toString())
-                    viewModel.onUpdate(updatedItem)
-                }
+                titleUpdateEditText.editText?.setText(title)
+                descriptionUpdateEditText.editText?.setText(description)
             }
+            updateButton.setOnClickListener {
+                when (updateAction) {
+                    "ADD" -> {
+                        viewModel.onAddItem(
+                            titleUpdateEditText.editText?.text.toString(),
+                            descriptionUpdateEditText.editText?.text.toString()
+                        )
+                    }
+                    "UPDATE" -> {
+                        itemUpdate?.apply {
+                            val updatedItem = copy(
+                                title = titleUpdateEditText.editText?.text.toString(),
+                                description = descriptionUpdateEditText.editText?.text.toString()
+                            )
+                            viewModel.onUpdate(updatedItem)
+                        }
+                    }
+                }
 
+            }
         }
         return binding.root
     }

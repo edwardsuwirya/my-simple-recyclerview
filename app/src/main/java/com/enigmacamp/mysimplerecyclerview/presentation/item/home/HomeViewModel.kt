@@ -35,8 +35,4 @@ class HomeViewModel(private val repository: SimpleRepository) : ViewModel(), Ite
         _itemUpdateLiveData.value = item
     }
 
-    fun onAddItem(title: String, description: String) {
-        repository.add(Item(title = title, description = description))
-        loadItemData()
-    }
 }

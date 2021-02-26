@@ -33,6 +33,7 @@ class ItemRepository : SimpleRepository {
         var oldItem = itemList.find {
             it.id == item.id
         }
+        Log.d("Repo", oldItem.toString())
         oldItem?.let {
             delete(it)
             add(item)
