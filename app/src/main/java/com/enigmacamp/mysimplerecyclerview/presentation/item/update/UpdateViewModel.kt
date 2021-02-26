@@ -1,4 +1,4 @@
-package com.enigmacamp.mysimplerecyclerview.presentation.main
+package com.enigmacamp.mysimplerecyclerview.presentation.item.update
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.enigmacamp.mysimplerecyclerview.data.model.Item
 import com.enigmacamp.mysimplerecyclerview.data.repository.SimpleRepository
 
-class ItemUpdateActivityViewModel(private val repository: SimpleRepository) : ViewModel() {
+class UpdateViewModel(private val repository: SimpleRepository) : ViewModel() {
     private var _updateStatus = MutableLiveData<Item>()
     val updateStatus: LiveData<Item>
         get() {

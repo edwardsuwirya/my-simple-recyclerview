@@ -1,13 +1,13 @@
-package com.enigmacamp.mysimplerecyclerview.presentation.main
+package com.enigmacamp.mysimplerecyclerview.presentation.item.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.enigmacamp.mysimplerecyclerview.data.model.Item
 import com.enigmacamp.mysimplerecyclerview.data.repository.SimpleRepository
+import com.enigmacamp.mysimplerecyclerview.presentation.main.ItemClickListener
 
-class MainActivityViewModel(val repository: SimpleRepository) : ViewModel(), ItemClickListener {
+class HomeViewModel(private val repository: SimpleRepository) : ViewModel(), ItemClickListener {
     private var _itemLiveData = MutableLiveData<List<Item>>()
     val itemLiveData: LiveData<List<Item>>
         get() {
@@ -21,9 +21,6 @@ class MainActivityViewModel(val repository: SimpleRepository) : ViewModel(), Ite
             return _itemUpdateLiveData
         }
 
-    init {
-        loadItemData()
-    }
 
     fun loadItemData() {
         _itemLiveData.value = repository.list()

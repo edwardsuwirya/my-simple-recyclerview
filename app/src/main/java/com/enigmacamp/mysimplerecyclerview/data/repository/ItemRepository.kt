@@ -3,18 +3,22 @@ package com.enigmacamp.mysimplerecyclerview.data.repository
 import android.util.Log
 import com.enigmacamp.mysimplerecyclerview.data.model.Item
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ItemRepository : SimpleRepository {
     companion object {
-        var itemList = arrayListOf(Item("111", "Mas Egi", "Tak Uuk"))
+        var itemList = arrayListOf(Item("111", "Mas Egi", "Tak uuk"))
     }
 
     override fun add(item: Item): Item {
-        val uuid = UUID.randomUUID().toString()
-        val itemWithId = item.copy(id = uuid)
-        itemList.add(itemWithId)
-        return itemWithId
+        if (item.id.isNullOrEmpty()) {
+            val uuid = UUID.randomUUID().toString()
+            val itemWithId = item.copy(id = uuid)
+            itemList.add(itemWithId)
+            return itemWithId
+        } else {
+            itemList.add(item)
+            return item
+        }
     }
 
     override fun delete(item: Item): Boolean {
