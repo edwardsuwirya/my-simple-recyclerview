@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -39,7 +40,11 @@ class UpdateFragment : Fragment() {
     ): View? {
         binding = FragmentUpdateBinding.inflate(inflater)
         binding.apply {
+            cancelButton.setOnClickListener {
+                Navigation.findNavController(requireView()).popBackStack()
+            }
             itemUpdate?.apply {
+
                 titleUpdateEditText.setText(title)
                 descriptionUpdateEditText.setText(description)
                 updateButton.setOnClickListener {
@@ -67,7 +72,8 @@ class UpdateFragment : Fragment() {
 
     private fun subscribe() {
         viewModel.updateStatus.observe(this, {
-            Navigation.findNavController(requireView()).popBackStack()
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_updateFragment_to_homeFragment, bundleOf("result" to it))
         })
     }
 

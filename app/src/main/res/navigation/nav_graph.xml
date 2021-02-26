@@ -12,8 +12,12 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_updateFragment"
-            app:destination="@id/updateFragment"
-            app:popUpToInclusive="false" />
+            app:destination="@id/updateFragment" />
+        <argument
+            android:name="result"
+            app:argType="com.enigmacamp.mysimplerecyclerview.data.model.Item"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
@@ -23,5 +27,10 @@
         <argument
             android:name="item_update"
             app:argType="com.enigmacamp.mysimplerecyclerview.data.model.Item" />
+        <action
+            android:id="@+id/action_updateFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

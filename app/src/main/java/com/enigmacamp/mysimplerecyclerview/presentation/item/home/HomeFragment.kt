@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.enigmacamp.mysimplerecyclerview.R
+import com.enigmacamp.mysimplerecyclerview.data.model.Item
 import com.enigmacamp.mysimplerecyclerview.data.repository.ItemRepository
 import com.enigmacamp.mysimplerecyclerview.databinding.FragmentHomeBinding
 
@@ -33,7 +35,13 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
+        arguments?.let {
+            val itemUpdate = it.getParcelable<Item>("result")
+            itemUpdate?.let {
+                Toast.makeText(requireContext(), "Success update ${it.title}", Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
         binding = FragmentHomeBinding.inflate(inflater)
         binding.apply {
             viewModel.loadItemData()
